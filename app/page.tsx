@@ -93,16 +93,8 @@ export default function Home() {
       setQuestion('')
       setShowReset(true)
     } catch (e: unknown) {
-      const message = e instanceof Error ? e.message : String(e)
-      const parts = message.split('|')
-      const code = parts[0]
-      const detail = parts[1] || ''
-      console.error('API error:', message)
-      if (code === '401') {
-        el.innerHTML = '<span class="error">Невірний ключ API. Перевірте GROQ_API_KEY на Vercel.</span>'
-      } else {
-        el.innerHTML = `<span class="error">Зв'язок обірвався (${code}). ${detail ? 'Деталі: ' + detail.slice(0, 200) : 'Спробуй ще раз.'}</span>`
-      }
+      console.error('API error:', e instanceof Error ? e.message : String(e))
+      el.innerHTML = '<span class="error">Звʼязок з духом обірвався. Спробуйте ще раз...</span>'
     }
 
     setBusy(false)

@@ -40,20 +40,28 @@ export async function POST(req: NextRequest) {
   }
 
   const model = 'gemini-2.5-flash'
-  const response = await fetch(
-    `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`,
-    {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(geminiBody),
+  const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`
+  const fetchOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(geminiBody),
+  }
+
+  let response: Response
+  let data: unknown
+  const maxRetries = 3
+  for (let attempt = 0; attempt < maxRetries; attempt++) {
+    response = await fetch(url, fetchOptions)
+    data = await response.json()
+    if (response.status !== 503) break
+    if (attempt < maxRetries - 1) {
+      await new Promise(r => setTimeout(r, 1000 * (attempt + 1)))
     }
-  )
+  }
 
-  const data = await response.json()
-
-  if (!response.ok) {
-    console.error('Gemini error:', response.status, JSON.stringify(data))
-    return NextResponse.json(data, { status: response.status })
+  if (!response!.ok) {
+    console.error('Gemini error:', response!.status, JSON.stringify(data))
+    return NextResponse.json(data, { status: response!.status })
   }
 
   const text: string = data.candidates?.[0]?.content?.parts?.[0]?.text ?? ''
