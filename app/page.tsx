@@ -72,7 +72,7 @@ export default function Home() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          max_tokens: 1000,
+          max_tokens: 2048,
           system: SYSTEM,
           messages: msgs,
         }),

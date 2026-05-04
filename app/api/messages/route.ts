@@ -48,7 +48,8 @@ export async function POST(req: NextRequest) {
   }
 
   let response: Response
-  let data: unknown
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  let data: any
   const maxRetries = 3
   for (let attempt = 0; attempt < maxRetries; attempt++) {
     response = await fetch(url, fetchOptions)
