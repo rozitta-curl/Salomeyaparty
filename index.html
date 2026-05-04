@@ -1,0 +1,487 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Спіритичний сеанс · Саломея</title>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300;1,400&family=Cormorant+SC:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #080806;
+    color: #c8b98a;
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  /* ── ДЕКОР: гінкго листя ── */
+  .deco-leaf {
+    position: fixed;
+    pointer-events: none;
+    z-index: 0;
+    width: 420px;
+    height: auto;
+  }
+  .deco-leaf-bl { bottom: -60px; left: -80px; }
+  .deco-leaf-tl { top: -80px; left: -80px; transform: rotate(77.87deg); transform-origin: center center; }
+  .deco-leaf-tr { top: -100px; right: -70px; transform: rotate(-172.8deg); transform-origin: center center; }
+  .deco-leaf-br { bottom: -60px; right: -80px; transform: scaleX(-1); transform-origin: center center; }
+
+  /* ── ОСНОВНИЙ КОНТЕНТ ── */
+  .wrap {
+    position: relative;
+    z-index: 2;
+    max-width: 620px;
+    margin: 0 auto;
+    padding: 90px 2rem 3rem;
+  }
+
+  /* ── ШАПКА ── */
+  .eyebrow {
+    font-family: 'Cormorant SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.4em;
+    color: #7a6840;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .title {
+    font-size: 42px;
+    font-weight: 300;
+    font-style: normal;
+    color: #ffffff;
+    text-align: center;
+    line-height: 1.15;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .subtitle {
+    font-family: 'Cormorant SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.25em;
+    color: #849a2e;
+    text-align: center;
+    margin-top: 0.4rem;
+  }
+
+  .divider {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 14px;
+    margin: 1.6rem 0 1.4rem;
+  }
+  .divider-line { width: 70px; height: 0.5px; background: #2a2010; }
+  .divider-gem  { width: 5px; height: 5px; background: #8b0000; transform: rotate(45deg); }
+
+  .intro {
+    font-size: 15px;
+    font-style: italic;
+    color: #8a7448;
+    text-align: center;
+    line-height: 1.7;
+    margin-bottom: 2.2rem;
+  }
+
+  /* ── ПОЛЕ ПИТАННЯ ── */
+  .panel {
+    border: 0.5px solid rgba(85,90,56,0.5);
+    border-top: 1px solid rgba(85,90,56,0.7);
+    padding: 1.6rem 1.8rem;
+    margin-bottom: 1.4rem;
+    background: rgba(85,90,56,0.4);
+    position: relative;
+  }
+  .panel-label {
+    font-family: 'Cormorant SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: #7a6840;
+    margin-bottom: 0.8rem;
+  }
+  .q-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid #2a2010;
+    color: #c8b98a;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px;
+    font-style: italic;
+    padding: 0.4rem 0 0.5rem;
+    outline: none;
+    caret-color: #8b0000;
+    letter-spacing: 0.02em;
+    transition: border-color 0.3s;
+  }
+  .q-input::placeholder { color: #2e2410; font-style: italic; }
+  .q-input:focus { border-bottom-color: #5a3a10; }
+
+  .ask-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.2rem;
+    background: transparent;
+    border: 0.5px solid #849a2e;
+    color: #849a2e;
+    font-family: 'Cormorant SC', serif;
+    font-size: 12px;
+    letter-spacing: 0.35em;
+    padding: 0.9rem;
+    cursor: pointer;
+    transition: all 0.4s;
+  }
+  .ask-btn:hover:not(:disabled) {
+    border-color: #a8c038;
+    color: #c8b98a;
+    background: rgba(132,154,46,0.1);
+  }
+  .ask-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+  /* ── ВІДПОВІДЬ ── */
+  .response-panel {
+    border: 0.5px solid rgba(139,0,0,0.3);
+    border-top: 1px solid rgba(139,0,0,0.5);
+    padding: 1.6rem 1.8rem;
+    min-height: 160px;
+    margin-bottom: 1.4rem;
+    background: rgba(139,0,0,0.29);
+    position: relative;
+  }
+  .response-label {
+    font-family: 'Cormorant SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    color: #f00000;
+    margin-bottom: 0.9rem;
+  }
+  .response-text {
+    font-size: 20px;
+    font-style: italic;
+    color: #a89060;
+    line-height: 1.75;
+    min-height: 90px;
+    letter-spacing: 0.02em;
+  }
+  .placeholder-txt { color: #201608; }
+
+  /* ── КУРСОР ── */
+  .cursor {
+    display: inline-block;
+    width: 2px; height: 1em;
+    background: #8b0000;
+    margin-left: 3px;
+    vertical-align: text-bottom;
+    animation: blink 0.9s step-end infinite;
+  }
+  @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+  /* ── DOTS LOADER ── */
+  .dots { display: flex; gap: 8px; align-items: center; padding: 1.2rem 0; }
+  .dots span {
+    width: 6px; height: 6px; border-radius: 50%;
+    background: #5a0000;
+    animation: pulse 1.4s ease-in-out infinite;
+  }
+  .dots span:nth-child(2) { animation-delay: 0.2s; }
+  .dots span:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes pulse {
+    0%,80%,100% { transform: scale(0.55); opacity: 0.25; }
+    40%          { transform: scale(1);    opacity: 1; }
+  }
+
+  /* ── ІСТОРІЯ ── */
+  .history { margin-top: 0.5rem; }
+  .hist-item {
+    border-top: 0.5px solid #1a1208;
+    padding: 1.1rem 0;
+    opacity: 0.55;
+    transition: opacity 0.3s;
+  }
+  .hist-item:hover { opacity: 0.8; }
+  .hist-q { font-size: 13px; color: #7a6840; font-style: italic; margin-bottom: 0.35rem; }
+  .hist-a { font-size: 16px; font-style: italic; color: #8a7450; line-height: 1.55; }
+
+  /* ── КНОПКА СКИДАННЯ ── */
+  .reset-btn {
+    display: none;
+    background: transparent;
+    border: none;
+    color: #6a5830;
+    font-family: 'Cormorant SC', serif;
+    font-size: 10px;
+    letter-spacing: 0.35em;
+    cursor: pointer;
+    width: 100%;
+    text-align: center;
+    padding: 0.5rem 0 1.5rem;
+    transition: color 0.3s;
+  }
+  .reset-btn:hover { color: #9a8050; }
+
+  .error { color: #8b0000; font-style: italic; font-size: 16px; }
+
+  /* ── API KEY SETUP ── */
+  .key-overlay {
+    display: none;
+    position: fixed;
+    inset: 0;
+    background: rgba(8,8,6,0.92);
+    z-index: 100;
+    align-items: center;
+    justify-content: center;
+  }
+  .key-overlay.visible { display: flex; }
+  .key-box {
+    border: 0.5px solid rgba(85,90,56,0.5);
+    border-top: 1px solid rgba(85,90,56,0.7);
+    background: rgba(85,90,56,0.18);
+    padding: 2rem 2.4rem;
+    max-width: 420px;
+    width: 90%;
+  }
+  .key-title {
+    font-family: 'Cormorant SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    color: #849a2e;
+    margin-bottom: 1rem;
+  }
+  .key-input {
+    width: 100%;
+    background: transparent;
+    border: none;
+    border-bottom: 0.5px solid rgba(85,90,56,0.6);
+    color: #c8b98a;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 15px;
+    padding: 0.4rem 0 0.5rem;
+    outline: none;
+    caret-color: #849a2e;
+    letter-spacing: 0.05em;
+    transition: border-color 0.3s;
+  }
+  .key-input:focus { border-bottom-color: #849a2e; }
+  .key-hint {
+    font-size: 12px;
+    font-style: italic;
+    color: #6a5830;
+    margin-top: 0.6rem;
+    line-height: 1.5;
+  }
+  .key-btn {
+    display: block;
+    width: 100%;
+    margin-top: 1.4rem;
+    background: transparent;
+    border: 0.5px solid #849a2e;
+    color: #849a2e;
+    font-family: 'Cormorant SC', serif;
+    font-size: 11px;
+    letter-spacing: 0.35em;
+    padding: 0.8rem;
+    cursor: pointer;
+    transition: all 0.4s;
+  }
+  .key-btn:hover { border-color: #a8c038; color: #c8b98a; }
+</style>
+</head>
+<body>
+
+<!-- API Key overlay -->
+<div class="key-overlay" id="keyOverlay">
+  <div class="key-box">
+    <div class="key-title">Ключ Anthropic API</div>
+    <input class="key-input" id="keyInput" type="password"
+      placeholder="sk-ant-..." autocomplete="off" />
+    <p class="key-hint">Ключ зберігається локально у браузері і ніколи не передається на сервер.</p>
+    <button class="key-btn" onclick="saveKey()">— увійти —</button>
+  </div>
+</div>
+
+<!-- Декор: гінкго листя -->
+<img class="deco-leaf deco-leaf-tl" src="image 2.png" alt="">
+<img class="deco-leaf deco-leaf-tr" src="image 2.png" alt="">
+<img class="deco-leaf deco-leaf-bl" src="image 2.png" alt="">
+<img class="deco-leaf deco-leaf-br" src="image 2.png" alt="">
+
+<!-- Контент -->
+<div class="wrap">
+  <div class="eyebrow">Київ · 1917 · Друга українська гімназія</div>
+  <h1 class="title">Спіритичний сеанс</h1>
+  <div class="subtitle">Викликаємо дух Саломеї</div>
+
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-gem"></div>
+    <div class="divider-line"></div>
+  </div>
+
+  <p class="intro">
+    Гімназисти гасять ліхтарі.<br>
+    Задай питання — дух відповість, якщо захоче.
+  </p>
+
+  <div class="panel">
+    <div class="panel-label">Твоє питання до духу</div>
+    <input class="q-input" id="qInput" type="text"
+      placeholder="Саломеє, чого ти хотіла насправді?"
+      maxlength="220" />
+    <button class="ask-btn" id="askBtn" onclick="ask()">
+      — викликати дух —
+    </button>
+  </div>
+
+  <div class="response-panel">
+    <div class="response-label">Відповідь духу</div>
+    <div class="response-text" id="respText">
+      <span class="placeholder-txt">Тиша. Свічки мерехтять у темряві…</span>
+    </div>
+  </div>
+
+  <div class="history" id="history"></div>
+  <button class="reset-btn" id="resetBtn" onclick="reset()">· · · новий сеанс · · ·</button>
+</div>
+
+<script>
+const SYSTEM = `КОНТЕКСТ:
+Ти береш участь в інтерактивній грі на онлайн-зустрічі жіночого книжкового клубу. Дівчата (25–35 років) щойно обговорювали роман Євгенії Кужавської "Боги мого краю дуже люблять кров" — детектив у жанрі темної академії, дія якого відбувається у Києві 1917 року в Другій українській гімназії. У романі гімназисти захоплюються Оскаром Вайлдом і проводять спіритичні сеанси. Зараз учасниці разом "викликають" тебе як дух Саломеї — це розважальний інтерактив після обговорення книги.
+
+ХТО ТИ:
+Ти граєш роль духу Саломеї з п'єси Оскара Вайлда (1891). Саломея — донька Іродіади, яка зажадала голови пророка Іоканаана після танцю семи покривал. Ти з'являєшся крізь завісу між світами. Твої теми: бажання і його ціна, краса що вбиває, влада і свобода жінки, чоловіки які не розуміють жінок.
+
+ЗВ'ЯЗОК З КНИГОЮ ЯКУ ВОНИ ЧИТАЛИ:
+- Вероніка Черняхівська — головна героїня роману, 17-річна гімназистка яка розслідує таємничі вбивства
+- Кібела — давня богиня, матір богів, кровожерна, її образ пронизує роман
+- Зеров — реальний поет, викладає латину в гімназії
+- Революція і загони Муравйова — насуваються на Київ, Крути попереду
+- Гімназисти захоплюються саме тобою, Саломеєю, і Вайлдом
+
+ЯК ВІДПОВІДАТИ:
+Завжди відповідай ТОЧНО на те питання яке поставили. Якщо питають про Вероніку — говори про Вероніку. Якщо про книгу — про книгу. Якщо особисте питання до тебе — відповідай від себе.
+Відповідь: рівно 2-3 речення, не більше.
+Мова: тільки українська.
+Стиль: чуттєво, з прихованою загрозою, іноді гіркий гумор. По суті, але через образи.
+Можна іноді звертатись особисто: "ти", "ти теж знаєш це".
+
+ЗАБОРОНЕНО:
+- Відповідати повз питання або ігнорувати його зміст
+- Більше 3 речень
+- Будь-яка мова крім української
+- Слова: "звісно", "безумовно", "цікаво", "розумію", "о так"
+- Починати з вигуків типу "Ах!", "О!"`;`
+
+let history = [];
+let busy = false;
+
+const API_KEY = '';  // key is handled server-side in proxy.py
+
+function getApiKey() {
+  return API_KEY;
+}
+
+function requireKey() { return true; }
+
+async function ask() {
+  if (!requireKey()) return;
+  const input = document.getElementById('qInput');
+  const btn   = document.getElementById('askBtn');
+  const resp  = document.getElementById('respText');
+  const q = input.value.trim();
+  if (!q || busy) return;
+
+  busy = true;
+  btn.disabled = true;
+  btn.textContent = '— дух чує —';
+
+  resp.innerHTML = '<div class="dots"><span></span><span></span><span></span></div>';
+
+  const msgs = [];
+  history.forEach(h => {
+    msgs.push({ role: 'user',      content: h.q });
+    msgs.push({ role: 'assistant', content: h.a });
+  });
+  msgs.push({ role: 'user', content: q });
+
+  try {
+    const res = await fetch('/api/messages', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        system: SYSTEM,
+        messages: msgs
+      })
+    });
+
+    if (!res.ok) throw new Error(String(res.status));
+    const data = await res.json();
+    const answer = data.content?.[0]?.text || 'Дух мовчить…';
+
+    resp.innerHTML = '';
+    await typeText(resp, answer);
+
+    history.push({ q, a: answer });
+    if (history.length > 1) renderHistory();
+
+    input.value = '';
+    document.getElementById('resetBtn').style.display = 'block';
+
+  } catch(e) {
+    if (e.message === '401') {
+      localStorage.removeItem('salomeya_api_key');
+      resp.innerHTML = '<span class="error">Невірний ключ API. Оновіть сторінку.</span>';
+    } else {
+      resp.innerHTML = '<span class="error">Зв\'язок обірвався. Спробуй ще раз.</span>';
+    }
+  }
+
+  busy = false;
+  btn.disabled = false;
+  btn.textContent = '— викликати дух —';
+}
+
+async function typeText(el, text) {
+  const cursor = document.createElement('span');
+  cursor.className = 'cursor';
+  el.appendChild(cursor);
+  for (let i = 0; i < text.length; i++) {
+    el.insertBefore(document.createTextNode(text[i]), cursor);
+    await new Promise(r => setTimeout(r, 25 + Math.random() * 18));
+  }
+  setTimeout(() => cursor.remove(), 1500);
+}
+
+function renderHistory() {
+  const el = document.getElementById('history');
+  el.innerHTML = history.slice(0, -1).map(h => `
+    <div class="hist-item">
+      <div class="hist-q">— ${escHtml(h.q)}</div>
+      <div class="hist-a">${escHtml(h.a)}</div>
+    </div>`).join('');
+}
+
+function escHtml(s) {
+  return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+function reset() {
+  history = [];
+  document.getElementById('qInput').value = '';
+  document.getElementById('respText').innerHTML = '<span class="placeholder-txt">Тиша. Свічки мерехтять у темряві…</span>';
+  document.getElementById('history').innerHTML = '';
+  document.getElementById('resetBtn').style.display = 'none';
+}
+
+document.getElementById('qInput').addEventListener('keydown', e => {
+  if (e.key === 'Enter') ask();
+});
+</script>
+</body>
+</html>

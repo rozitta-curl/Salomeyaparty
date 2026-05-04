@@ -1,0 +1,216 @@
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: #080806;
+  color: #c8b98a;
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  min-height: 100vh;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ── ДЕКОР: гінкго листя ── */
+.deco-leaf {
+  position: fixed;
+  pointer-events: none;
+  z-index: 0;
+  width: 420px;
+  height: auto;
+}
+.deco-leaf-bl { bottom: -60px; left: -80px; }
+.deco-leaf-tl { top: -80px; left: -80px; transform: rotate(77.87deg); transform-origin: center center; }
+.deco-leaf-tr { top: -100px; right: -70px; transform: rotate(-172.8deg); transform-origin: center center; }
+.deco-leaf-br { bottom: -60px; right: -80px; transform: scaleX(-1); transform-origin: center center; }
+
+/* ── ОСНОВНИЙ КОНТЕНТ ── */
+.wrap {
+  position: relative;
+  z-index: 2;
+  max-width: 620px;
+  margin: 0 auto;
+  padding: 90px 2rem 3rem;
+}
+
+/* ── ШАПКА ── */
+.eyebrow {
+  font-family: 'Cormorant SC', serif;
+  font-size: 11px;
+  letter-spacing: 0.4em;
+  color: #7a6840;
+  text-align: center;
+  margin-bottom: 0.5rem;
+}
+.title {
+  font-size: 42px;
+  font-weight: 300;
+  font-style: normal;
+  color: #ffffff;
+  text-align: center;
+  line-height: 1.15;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+.subtitle {
+  font-family: 'Cormorant SC', serif;
+  font-size: 12px;
+  letter-spacing: 0.25em;
+  color: #849a2e;
+  text-align: center;
+  margin-top: 0.4rem;
+}
+
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin: 1.6rem 0 1.4rem;
+}
+.divider-line { width: 70px; height: 0.5px; background: #2a2010; }
+.divider-gem  { width: 5px; height: 5px; background: #8b0000; transform: rotate(45deg); }
+
+.intro {
+  font-size: 15px;
+  font-style: italic;
+  color: #8a7448;
+  text-align: center;
+  line-height: 1.7;
+  margin-bottom: 2.2rem;
+}
+
+/* ── ПОЛЕ ПИТАННЯ ── */
+.panel {
+  border: 0.5px solid rgba(85,90,56,0.5);
+  border-top: 1px solid rgba(85,90,56,0.7);
+  padding: 1.6rem 1.8rem;
+  margin-bottom: 1.4rem;
+  background: rgba(85,90,56,0.4);
+  position: relative;
+}
+.panel-label {
+  font-family: 'Cormorant SC', serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: #7a6840;
+  margin-bottom: 0.8rem;
+}
+.q-input {
+  width: 100%;
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid #2a2010;
+  color: #c8b98a;
+  font-family: 'Cormorant Garamond', serif;
+  font-size: 20px;
+  font-style: italic;
+  padding: 0.4rem 0 0.5rem;
+  outline: none;
+  caret-color: #8b0000;
+  letter-spacing: 0.02em;
+  transition: border-color 0.3s;
+}
+.q-input::placeholder { color: #2e2410; font-style: italic; }
+.q-input:focus { border-bottom-color: #5a3a10; }
+
+.ask-btn {
+  display: block;
+  width: 100%;
+  margin-top: 1.2rem;
+  background: transparent;
+  border: 0.5px solid #849a2e;
+  color: #849a2e;
+  font-family: 'Cormorant SC', serif;
+  font-size: 12px;
+  letter-spacing: 0.35em;
+  padding: 0.9rem;
+  cursor: pointer;
+  transition: all 0.4s;
+}
+.ask-btn:hover:not(:disabled) {
+  border-color: #a8c038;
+  color: #c8b98a;
+  background: rgba(132,154,46,0.1);
+}
+.ask-btn:disabled { opacity: 0.35; cursor: not-allowed; }
+
+/* ── ВІДПОВІДЬ ── */
+.response-panel {
+  border: 0.5px solid rgba(139,0,0,0.3);
+  border-top: 1px solid rgba(139,0,0,0.5);
+  padding: 1.6rem 1.8rem;
+  min-height: 160px;
+  margin-bottom: 1.4rem;
+  background: rgba(139,0,0,0.29);
+  position: relative;
+}
+.response-label {
+  font-family: 'Cormorant SC', serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  color: #f00000;
+  margin-bottom: 0.9rem;
+}
+.response-text {
+  font-size: 20px;
+  font-style: italic;
+  color: #a89060;
+  line-height: 1.75;
+  min-height: 90px;
+  letter-spacing: 0.02em;
+}
+.placeholder-txt { color: #201608; }
+
+/* ── КУРСОР ── */
+.cursor {
+  display: inline-block;
+  width: 2px; height: 1em;
+  background: #8b0000;
+  margin-left: 3px;
+  vertical-align: text-bottom;
+  animation: blink 0.9s step-end infinite;
+}
+@keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
+
+/* ── DOTS LOADER ── */
+.dots { display: flex; gap: 8px; align-items: center; padding: 1.2rem 0; }
+.dots span {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: #5a0000;
+  animation: pulse 1.4s ease-in-out infinite;
+}
+.dots span:nth-child(2) { animation-delay: 0.2s; }
+.dots span:nth-child(3) { animation-delay: 0.4s; }
+@keyframes pulse {
+  0%,80%,100% { transform: scale(0.55); opacity: 0.25; }
+  40%          { transform: scale(1);    opacity: 1; }
+}
+
+/* ── ІСТОРІЯ ── */
+.history { margin-top: 0.5rem; }
+.hist-item {
+  border-top: 0.5px solid #1a1208;
+  padding: 1.1rem 0;
+  opacity: 0.55;
+  transition: opacity 0.3s;
+}
+.hist-item:hover { opacity: 0.8; }
+.hist-q { font-size: 13px; color: #7a6840; font-style: italic; margin-bottom: 0.35rem; }
+.hist-a { font-size: 16px; font-style: italic; color: #8a7450; line-height: 1.55; }
+
+/* ── КНОПКА СКИДАННЯ ── */
+.reset-btn {
+  background: transparent;
+  border: none;
+  color: #6a5830;
+  font-family: 'Cormorant SC', serif;
+  font-size: 10px;
+  letter-spacing: 0.35em;
+  cursor: pointer;
+  width: 100%;
+  text-align: center;
+  padding: 0.5rem 0 1.5rem;
+  transition: color 0.3s;
+}
+.reset-btn:hover { color: #9a8050; }
+
+.error { color: #8b0000; font-style: italic; font-size: 16px; }
