@@ -109,7 +109,7 @@ body {
   letter-spacing: 0.02em;
   transition: border-color 0.3s;
 }
-.q-input::placeholder { color: #2e2410; font-style: italic; }
+.q-input::placeholder { color: #4D422B; font-style: italic; }
 .q-input:focus { border-bottom-color: #5a3a10; }
 
 .ask-btn {
@@ -159,7 +159,7 @@ body {
   letter-spacing: 0.02em;
   white-space: pre-wrap;
 }
-.placeholder-txt { color: #201608; }
+.placeholder-txt { color: #2C2418; }
 
 /* ── КУРСОР ── */
 .cursor {
